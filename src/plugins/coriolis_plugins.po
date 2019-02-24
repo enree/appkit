@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: build-coriolis-qt 5gcc-Default\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Language: ru\n"
+"X-Source-Language: C\n"
+
+#: FactoryLoader.cpp:27
+msgid "Loading {1}"
+msgstr "Загружается {1}"
+
+#: FactoryLoader.cpp:34
+msgid "Failed to load {1}: {2}"
+msgstr "Не удалось загрузить {1}: {2}"
+
+#: FactoryLoader.cpp:41
+msgid "Skipped {1}"
+msgstr "Пропущен {1}"
+
+#: FactoryLoader.cpp:46
+msgid "Loaded {1}"
+msgstr "Загружен {1}"
+
+#: FactoryLoader.cpp:54
+msgid "Loading plugins from {1}/{2}"
+msgstr "Загрузка плагинов из {1}/{2}"
