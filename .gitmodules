@@ -1,0 +1,9 @@
+[submodule "cmake"]
+	path = cmake
+	url = https://github.com/enree/cmake.git
+[submodule "modules/gsl"]
+	path = modules/gsl
+	url = https://github.com/enree/GSL.git
+[submodule "modules/gqtest"]
+	path = modules/gqtest
+	url = https://github.com/enree/gqtest.git

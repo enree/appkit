@@ -1,0 +1,63 @@
+/** @file
+ * @brief
+ *
+ * @ingroup
+ *
+ * @copyright  (C) 2017 PKB RIO Design Department
+ *
+ * $Id: $
+ */
+
+#include "CustomSyslogFactory.h"
+
+#include "SeverityLevel.h"
+
+#include <boost/log/sinks/sync_frontend.hpp>
+#include <boost/log/sinks/syslog_backend.hpp>
+#include <boost/log/utility/setup/filter_parser.hpp>
+#include <boost/log/utility/setup/formatter_parser.hpp>
+
+namespace rio
+{
+
+namespace logger
+{
+
+boost::shared_ptr<boost::log::sinks::sink>
+CustomSyslogFactory::create_sink(const settings_section& settings)
+{
+    using namespace boost::log;
+
+    boost::shared_ptr< sinks::synchronous_sink<sinks::syslog_backend> > sink =
+        boost::make_shared< sinks::synchronous_sink<sinks::syslog_backend> >(
+                keywords::facility = sinks::syslog::user);
+
+
+    if (boost::optional< std::string > param = settings["Filter"])
+    {
+        sink->set_filter(boost::log::parse_filter(param.get()));
+    }
+    if (boost::optional< std::string > param = settings["Format"])
+    {
+        sink->set_formatter(boost::log::parse_formatter(param.get()));
+    }
+    if (boost::optional< std::string > param = settings["TargetAddress"])
+    {
+        sink->locked_backend()->set_target_address(param.get());
+    }
+
+    // Create and fill in another level translator for "Severity" attribute of type string
+    sinks::syslog::custom_severity_mapping<SeverityLevel> mapping("Severity");
+    mapping[DEBUG] = sinks::syslog::debug;
+    mapping[INFO] = sinks::syslog::info;
+    mapping[WARNING] = sinks::syslog::warning;
+    mapping[ERROR] = sinks::syslog::error;
+    mapping[FATAL] = sinks::syslog::critical;
+    sink->locked_backend()->set_severity_mapper(mapping);
+
+    return sink;
+}
+
+} // namespace logger
+
+} // namespace rio
