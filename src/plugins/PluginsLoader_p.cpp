@@ -12,46 +12,46 @@
 #include "PluginException.h"
 #include "ServicePluginInterface.h"
 
-#include "coriolis/exception/InvalidPath.h"
-#include "coriolis/qt/StringUtils.h"
+#include "exception/InvalidPath.h"
+#include "qt/Strings.h"
 
 #include <QDir>
 
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/bind.hpp>
-#include <boost/make_shared.hpp>
 
-namespace rio
+namespace appkit
 {
 
 namespace plugins
 {
 
-PluginsLoader_p::PluginsLoader_p(QObject* parent)
-    : QObject(parent)
-{
-}
+PluginsLoader_p::PluginsLoader_p(QObject* parent) : QObject(parent) {}
 
 size_t PluginsLoader_p::size() const
 {
     return m_plugins.size();
 }
 
-void PluginsLoader_p::load(bool serviceMode, const QString& subDir, const QString& baseDir)
+void PluginsLoader_p::load(
+    bool serviceMode, const QString& subDir, const QString& baseDir)
 {
     QDir pluginDir(baseDir);
     if (!(pluginDir.exists()) || !pluginDir.cd(subDir))
     {
-        BOOST_THROW_EXCEPTION(exception::InvalidPath(strings::toUtf8(pluginDir.absolutePath())));
+        BOOST_THROW_EXCEPTION(
+            exception::InvalidPath(strings::toUtf8(pluginDir.absolutePath())));
     }
 
-    QStringList pluginList = pluginDir.entryList(QStringList() << "*", QDir::Files);
+    QStringList pluginList
+        = pluginDir.entryList(QStringList() << "*", QDir::Files);
 
-    BOOST_FOREACH (const QString& pluginName, pluginList)
+    for (const auto& pluginName: pluginList)
     {
         emit probing(pluginName);
         bool pluginNameHasBeenLoaded = boost::algorithm::any_of(
-            m_plugins, boost::bind(&PluginWrapper::libraryName, _1) == pluginName);
+            m_plugins,
+            boost::bind(&PluginWrapper::libraryName, _1) == pluginName);
         if (pluginNameHasBeenLoaded || !QLibrary::isLibrary(pluginName))
         {
             emit skipped(pluginName);
@@ -60,11 +60,15 @@ void PluginsLoader_p::load(bool serviceMode, const QString& subDir, const QStrin
 
         try
         {
-            auto wrapper = boost::make_shared<PluginWrapper>(pluginName, pluginDir);
-            if (serviceMode || !wrapper->isInterfaceSupported<ServicePluginInterface>())
+            auto wrapper
+                = std::make_shared<PluginWrapper>(pluginName, pluginDir);
+            if (serviceMode
+                || !wrapper->isInterfaceSupported<ServicePluginInterface>())
             {
                 bool pluginClassHasBeenLoaded = boost::algorithm::any_of(
-                    m_plugins, boost::bind(&PluginWrapper::className, _1) == wrapper->className());
+                    m_plugins,
+                    boost::bind(&PluginWrapper::className, _1)
+                        == wrapper->className());
 
                 // Skip loaded classes
                 if (!pluginClassHasBeenLoaded)
@@ -85,22 +89,23 @@ void PluginsLoader_p::load(bool serviceMode, const QString& subDir, const QStrin
         catch (const plugins::PluginException& ex)
         {
             auto info = boost::get_error_info<plugins::PluginError>(ex);
-            emit failed(pluginName, info != nullptr ? *info: tr("Unknown error"));
+            emit failed(
+                pluginName, info != nullptr ? *info : tr("Unknown error"));
         }
     }
 }
 
-void PluginsLoader_p::add(const QString &name, QObject *object)
+void PluginsLoader_p::add(const QString& name, QObject* object)
 {
-    bool pluginClassHasBeenLoaded = boost::algorithm::any_of(
-        m_plugins, boost::bind(&PluginWrapper::className, _1) == name);
+    bool pluginClassHasBeenLoaded = boost::algorithm::
+        any_of(m_plugins, boost::bind(&PluginWrapper::className, _1) == name);
 
     if (!pluginClassHasBeenLoaded)
     {
-        m_plugins.push_back(boost::make_shared<PluginWrapper>(name, object));
+        m_plugins.push_back(std::make_shared<PluginWrapper>(name, object));
     }
 }
 
 } // namespace plugins
 
-} // namespace rio
+} // namespace appkit

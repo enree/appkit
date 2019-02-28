@@ -2,7 +2,7 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU">
 <context>
-    <name>rio::plugins::PluginsLoader_p</name>
+    <name>appkit::plugins::PluginsLoader_p</name>
     <message>
         <source>Unknown error</source>
         <translation>Неизвестная ошибка</translation>

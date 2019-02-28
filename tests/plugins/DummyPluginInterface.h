@@ -11,7 +11,7 @@
 
 #include <QtPlugin>
 
-namespace rio
+namespace appkit
 {
 
 namespace plugins
@@ -24,16 +24,20 @@ class DummyPluginInterface
 {
 public:
     virtual QString text() const = 0;
-    virtual void setText(const QString& text) {m_text = text;}
+    virtual void setText(const QString& text)
+    {
+        m_text = text;
+    }
     virtual ~DummyPluginInterface() {}
 
 protected:
     QString m_text;
 };
 
-} // plugins
+} // namespace plugins
 
-} // rio
+} // namespace appkit
 
-Q_DECLARE_INTERFACE(rio::plugins::DummyPluginInterface,
-    "com.pkb-rio.dev.DummyPluginInterface")
+Q_DECLARE_INTERFACE(
+    appkit::plugins::DummyPluginInterface,
+    "com.pkb-appkit.dev.DummyPluginInterface")

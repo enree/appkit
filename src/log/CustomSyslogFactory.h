@@ -38,17 +38,14 @@ We support the following parameters
         Format="%Scope% [%TimeStamp%]: <%Severity%> %Message%"
         TargetAddress=127.0.0.1
 **/
-class CustomSyslogFactory
-    : public boost::log::sink_factory<char>
+class CustomSyslogFactory : public boost::log::sink_factory<char>
 {
 public:
     // Creates the sink with the provided parameters
     boost::shared_ptr<boost::log::sinks::sink>
-        create_sink(const settings_section& settings);
-
+    create_sink(const settings_section& settings) override;
 };
 
-} // logging
+} // namespace logger
 
-} // appkit
-
+} // namespace appkit

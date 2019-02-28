@@ -1,9 +1,6 @@
 /** @file
  * @brief  Application sentinel class. Declaration.
  *
- * @ingroup RIO_STOKES
- *
- * @copyright  (C) 2017 PKB RIO Design Department
  *
  * $Id: $
  */
@@ -29,9 +26,6 @@ class mapped_region;
 } // boost
 
 namespace appkit
-{
-
-namespace app
 {
 
 /**
@@ -80,7 +74,5 @@ private:
     std::unique_ptr<boost::interprocess::file_lock> m_lock;
 
 };
-
-} // app
 
 } // appkit

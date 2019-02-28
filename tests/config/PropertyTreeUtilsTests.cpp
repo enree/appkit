@@ -11,8 +11,9 @@
 
 #include "appkit/Paths.h"
 
-#include "PTreeUtils.h"
 #include "config/PTreeRW.h"
+#include "config/PTreeUtils.h"
+
 #include "exception/InvalidConfigEntry.h"
 #include "exception/KeyInfo.h"
 

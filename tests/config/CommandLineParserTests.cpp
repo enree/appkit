@@ -9,7 +9,7 @@
  * $Id: $
  */
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include "gqtest"
 

@@ -13,7 +13,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
 
-namespace rio
+namespace appkit
 {
 
 namespace translate
@@ -64,4 +64,4 @@ std::vector<std::string> installBoostTranslation(const std::string& path)
 
 } // namespace translate
 
-} // namespace rio
+} // namespace appkit

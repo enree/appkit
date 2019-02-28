@@ -117,8 +117,9 @@ public:
     {
         verifyKey(key);
 
-        boost::shared_ptr<SubtreeOption> option(
-            new SubtreeOption(key, description, subtreeParser));
+        std::shared_ptr<SubtreeOption> option{
+            new SubtreeOption(key, description, subtreeParser)
+        };
         m_options[key] = option;
     }
 
@@ -164,7 +165,7 @@ private:
     {
         verifyKey(key);
 
-        boost::shared_ptr<O<T>> option(new O<T>(setter, key, description));
+        std::shared_ptr<O<T>> option{ new O<T>(setter, key, description) };
         m_options[key] = option;
         return *option;
     }
@@ -175,7 +176,7 @@ private:
     void verifyKey(const std::string& key) const;
 
 private:
-    typedef std::map<std::string, boost::shared_ptr<Option>> Options;
+    using Options = std::map<std::string, std::shared_ptr<Option>>;
     Options m_options;
     boost::property_tree::ptree m_config;
 

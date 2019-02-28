@@ -11,10 +11,7 @@
 
 #include "PluginsLoader.h"
 
-#include "coriolis/utils/Range.h"
-
-#ifndef Q_MOC_RUN   // Protect from BOOST_JOIN error
-#include <boost/shared_ptr.hpp>
+#ifndef Q_MOC_RUN // Protect from BOOST_JOIN error
 #include <boost/iterator/iterator_facade.hpp>
 #endif
 
@@ -31,7 +28,7 @@ class PluginsLoader;
 template <typename PluginInterface>
 struct PluginsHolderType
 {
-    boost::shared_ptr<PluginWrapper> wrapper;
+    std::shared_ptr<PluginWrapper> wrapper;
 
     PluginInterface* operator()() const
     {
@@ -48,19 +45,17 @@ struct PluginsHolderType
  * Plugins iterator type (const)
  */
 template <typename PluginInterface>
-class PluginsHolderIterator :
-        public boost::iterator_facade
-        <
-            PluginsHolderIterator<PluginInterface>
-            , PluginsHolderType<PluginInterface> const
-            , boost::forward_traversal_tag
-        >
+class PluginsHolderIterator : public boost::iterator_facade<
+                                  PluginsHolderIterator<PluginInterface>,
+                                  PluginsHolderType<PluginInterface> const,
+                                  boost::forward_traversal_tag>
 {
 public:
-    typedef boost::shared_ptr<PluginWrapper> PluginWrapperPtr;
-    typedef PluginsHolderType<PluginInterface> value_type;
+    using PluginWrapperPtr = std::shared_ptr<PluginWrapper>;
+    using value_type = PluginsHolderType<PluginInterface>;
 
-    explicit PluginsHolderIterator(const std::vector<PluginWrapperPtr>::const_iterator& it)
+    explicit PluginsHolderIterator(
+        const std::vector<PluginWrapperPtr>::const_iterator& it)
         : m_iterator(it)
     {
     }
@@ -96,23 +91,23 @@ template <typename I>
 class PluginsHolder
 {
     typedef PluginsHolder<I> this_type;
+
 public:
-    typedef PluginsHolderIterator<I> iterator;    // Type of iterator
-    typedef typename utils::range<this_type>::type range;
+    typedef PluginsHolderIterator<I> iterator; // Type of iterator
     typedef typename iterator::value_type value_type;
 
     /**
      * Create plugins holder from loader.
      * This function takes all plugins supports I from loader
      */
-    PluginsHolder(const PluginsLoader& loader)
+    explicit PluginsHolder(const PluginsLoader& loader)
         : m_wrappers(loader.m_impl->take<I>())
     {
     }
 
     /**
      * Return iterator points to begin
-    */
+     */
     iterator begin() const
     {
         return iterator(m_wrappers.begin());
@@ -120,7 +115,7 @@ public:
 
     /**
      * Return iterator points to end
-    */
+     */
     iterator end() const
     {
         return iterator(m_wrappers.end());
@@ -130,6 +125,6 @@ private:
     std::vector<typename iterator::PluginWrapperPtr> m_wrappers;
 };
 
-} // plugins
+} // namespace plugins
 
-} // appkit
+} // namespace appkit

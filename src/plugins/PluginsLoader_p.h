@@ -11,15 +11,7 @@
 
 #include "PluginWrapper.h"
 
-#include "coriolis/boost/foreach.h"
-
 #include <QPluginLoader>
-
-#ifndef Q_MOC_RUN   // Protect from BOOST_JOIN error
-#include <boost/scoped_ptr.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/function.hpp>
-#endif
 
 #include <vector>
 
@@ -29,8 +21,7 @@ namespace appkit
 namespace plugins
 {
 
-class PluginsLoader_p
-        : public QObject
+class PluginsLoader_p : public QObject
 {
     Q_OBJECT
     friend class PluginsLoader;
@@ -42,18 +33,18 @@ signals:
     /**
      * The signal is emmited when @a plugin has been loaded
      */
-    void loaded(const QString&  plugin);
+    void loaded(const QString& plugin);
     /**
      * The signal is emmited when @a plugin has been skipped
      */
-    void skipped(const QString&  plugin);
+    void skipped(const QString& plugin);
     /**
      * The signal is emmited when @a plugin failed to load
      */
     void failed(const QString& plugin, const QString& error);
 
 public:
-    typedef boost::shared_ptr<PluginWrapper> PluginWrapperPtr;
+    using PluginWrapperPtr = std::shared_ptr<PluginWrapper>;
     template <typename I>
     std::vector<PluginWrapperPtr> take()
     {
@@ -80,30 +71,31 @@ private:
 
     size_t size() const;
 
-    void load(bool serviceMode, const QString &subDir, const QString &baseDir);
+    void load(bool serviceMode, const QString& subDir, const QString& baseDir);
 
-    void add(const QString &name, QObject *object);
+    void add(const QString& name, QObject* object);
 
     template <typename I>
     std::vector<PluginWrapperPtr> plugins() const
     {
         std::vector<PluginWrapperPtr> plugins;
-        BOOST_FOREACH(const Plugins::value_type& plugin, m_plugins)
-        {
-            if (plugin->isInterfaceSupported<I>())
-            {
-                plugins.push_back(plugin);
-            }
-        }
+        std::copy_if(
+            m_plugins.begin(),
+            m_plugins.end(),
+            std::back_inserter(plugins),
+            [](const std::shared_ptr<PluginWrapper>& plugin) {
+                return plugin->isInterfaceSupported<I>();
+            });
+
         return plugins;
     }
 
 private:
     // Internal plugins storage
-    typedef std::vector< boost::shared_ptr<PluginWrapper> > Plugins;
+    using Plugins = std::vector<std::shared_ptr<PluginWrapper>>;
     Plugins m_plugins;
 };
 
-} // plugins
+} // namespace plugins
 
-} // appkit
+} // namespace appkit

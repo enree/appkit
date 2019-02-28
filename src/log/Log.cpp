@@ -15,7 +15,7 @@
 #include <unistd.h>
 #endif
 
-namespace rio
+namespace appkit
 {
 
 namespace logger
@@ -23,17 +23,24 @@ namespace logger
 
 namespace
 {
-void init ()
+
+void init()
 {
-    boost::log::register_sink_factory("CustomSyslog", boost::make_shared<CustomSyslogFactory>());
+    boost::log::register_sink_factory(
+        "CustomSyslog", boost::make_shared<CustomSyslogFactory>());
 
-    boost::log::register_formatter_factory("TimeStamp", boost::make_shared<TimeStampFormatterFactory>());
-    boost::log::register_simple_formatter_factory<rio::logger::LogParams, char>("Params");
+    boost::log::register_formatter_factory(
+        "TimeStamp", boost::make_shared<TimeStampFormatterFactory>());
+    boost::log::register_simple_formatter_factory<logger::LogParams, char>(
+        "Params");
 
-    // We have some kind of magic here. On MSVS platform the order of this call is essential.
-    // If we register formatter before filter, we have no message in output
-    boost::log::register_simple_filter_factory<rio::logger::SeverityLevel, char>("Severity");
-    boost::log::register_simple_formatter_factory<rio::logger::SeverityLevel, char>("Severity");
+    // We have some kind of magic here. On MSVS platform the order of this call
+    // is essential. If we register formatter before filter, we have no message
+    // in output
+    boost::log::register_simple_filter_factory<logger::SeverityLevel, char>(
+        "Severity");
+    boost::log::register_simple_formatter_factory<logger::SeverityLevel, char>(
+        "Severity");
 }
 
 } // namespace
@@ -48,11 +55,11 @@ Log::Log(const std::string& configFilename)
     setupAttributes();
 }
 
-Log::Log(const boost::log::settings &settings)
+Log::Log(const boost::log::settings& settings)
 {
-   init();
-   logging::init_from_settings(settings);
-   setupAttributes();
+    init();
+    logging::init_from_settings(settings);
+    setupAttributes();
 }
 
 Log::~Log()
@@ -62,27 +69,35 @@ Log::~Log()
 
 void Log::setupAttributes()
 {
-    boost::shared_ptr<logging::core> core = logging::core::get();
+    auto core = logging::core::get();
     BOOST_ASSERT(core);
 
     boost::log::add_common_attributes();
 #ifdef __linux
     uid_t uid(geteuid());
 
-    core->add_global_attribute("pid", boost::log::attributes::constant<__pid_t>(getpid()));
-    core->add_global_attribute("ppid", boost::log::attributes::constant<__pid_t>(getppid()));
-    core->add_global_attribute("uid", boost::log::attributes::constant<__pid_t>(uid));
-    core->add_global_attribute("gid", boost::log::attributes::constant<__pid_t>(getgid()));
-    core->add_global_attribute("euid", boost::log::attributes::constant<__pid_t>(geteuid()));
-    if (struct passwd *pw = getpwuid(uid))
+    core->add_global_attribute(
+        "pid", boost::log::attributes::constant<__pid_t>(getpid()));
+    core->add_global_attribute(
+        "ppid", boost::log::attributes::constant<__pid_t>(getppid()));
+    core->add_global_attribute(
+        "uid", boost::log::attributes::constant<__pid_t>(uid));
+    core->add_global_attribute(
+        "gid", boost::log::attributes::constant<__pid_t>(getgid()));
+    core->add_global_attribute(
+        "euid", boost::log::attributes::constant<__pid_t>(geteuid()));
+    if (struct passwd* pw = getpwuid(uid))
     {
-        core->add_global_attribute("user",
-            boost::log::attributes::constant<std::string>(std::string(pw->pw_name)));
+        core->add_global_attribute(
+            "user",
+            boost::log::attributes::constant<std::string>(
+                std::string(pw->pw_name)));
     }
 #endif
-    core->add_global_attribute("AppName", boost::log::attributes::current_process_name());
+    core->add_global_attribute(
+        "AppName", boost::log::attributes::current_process_name());
 }
 
 } // namespace logger
 
-} // namespace rio
+} // namespace appkit

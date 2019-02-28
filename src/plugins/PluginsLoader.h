@@ -11,11 +11,9 @@
 
 #include "PluginsLoader_p.h"
 
-#include "coriolis/utils/Range.h"
-
 #include <QObject>
 
-#ifndef Q_MOC_RUN   // Protect from BOOST_JOIN error
+#ifndef Q_MOC_RUN // Protect from BOOST_JOIN error
 #include <boost/iterator/iterator_facade.hpp>
 #endif
 
@@ -30,18 +28,16 @@ namespace plugins
 /**
  * Plugins iterator type (const)
  */
-class PluginsLoaderIterator :
-        public boost::iterator_facade
-        <
-            PluginsLoaderIterator
-            , boost::shared_ptr<PluginWrapper>  const
-            , boost::forward_traversal_tag
-        >
+class PluginsLoaderIterator : public boost::iterator_facade<
+                                  PluginsLoaderIterator,
+                                  std::shared_ptr<PluginWrapper> const,
+                                  boost::forward_traversal_tag>
 {
 public:
-    typedef boost::shared_ptr<PluginWrapper> value_type;
+    using value_type = std::shared_ptr<PluginWrapper>;
 
-    explicit PluginsLoaderIterator(const std::vector<value_type>::const_iterator& it)
+    explicit PluginsLoaderIterator(
+        const std::vector<value_type>::const_iterator& it)
         : m_iterator(it)
     {
     }
@@ -71,27 +67,30 @@ private:
 /**
  * Class for loading plugins. Sending signals about loading progress
  */
-class PluginsLoader
-    : public QObject
+class PluginsLoader : public QObject
 {
     Q_OBJECT
 
-    template <class I> friend class PluginsHolder;
+    template <class I>
+    friend class PluginsHolder;
+
 public:
-    typedef PluginsLoaderIterator iterator;    // Type of iterator
-    typedef utils::range<PluginsLoader>::type range;
-    typedef iterator::value_type value_type;
+    using iterator = PluginsLoaderIterator; // Type of iterator
+    using value_type = iterator::value_type;
 
     /**
-     * Create plugins loader. If @a serviceMode is set to false, no ServicePluginInterface
-     * will be loaded.
+     * Create plugins loader. If @a serviceMode is set to false, no
+     * ServicePluginInterface will be loaded.
      */
-    explicit PluginsLoader(QObject *parent = 0);
+    explicit PluginsLoader(QObject* parent = 0);
 
     /**
      * Loading plugins
      */
-    void load(bool serviceMode, const QString& subDir, const QString& baseDir = QString(""));
+    void load(
+        bool serviceMode,
+        const QString& subDir,
+        const QString& baseDir = QString(""));
 
     /**
      * Return plugin wrappers implementing certain @a Interface.
@@ -108,18 +107,19 @@ public:
     size_t size() const;
 
     /**
-     * Add custom plugin @a object (created manually). PluginsLoader takes ownership over @a object
+     * Add custom plugin @a object (created manually). PluginsLoader takes
+     * ownership over @a object
      */
     void add(const QString& name, QObject* object);
 
     /**
      * Return iterator points to begin
-    */
+     */
     iterator begin() const;
 
     /**
      * Return iterator points to end
-    */
+     */
     iterator end() const;
 
 signals:
@@ -134,7 +134,7 @@ signals:
     /**
      * The signal is emmited when @a plugin has been skipped
      */
-    void skipped(const QString&  plugin);
+    void skipped(const QString& plugin);
     /**
      * The signal is emmited when @a plugin failed to load
      */
@@ -144,6 +144,6 @@ private:
     PluginsLoader_p* m_impl;
 };
 
-} // plugins
+} // namespace plugins
 
-} // appkit
+} // namespace appkit

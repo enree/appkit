@@ -14,7 +14,7 @@
 
 #include <QObject>
 
-namespace rio
+namespace appkit
 {
 
 namespace plugins
@@ -23,24 +23,21 @@ namespace plugins
 /**
  * Dummy widget for testing
  */
-class NonServicePlugin
-    : public QObject
-    , public DummyPluginInterface
+class NonServicePlugin : public QObject, public DummyPluginInterface
 {
     Q_OBJECT
 
-#ifdef QT5_BUILD
-    Q_PLUGIN_METADATA(IID "com.pkb-rio.dev.DummyPluginInterface")
-#endif
-    Q_INTERFACES(rio::plugins::DummyPluginInterface)
+    Q_PLUGIN_METADATA(IID "com.pkb-appkit.dev.DummyPluginInterface")
+    Q_INTERFACES(appkit::plugins::DummyPluginInterface)
 
 public:
-    virtual QString text() const
+    QString text() const override
     {
-        return m_text.isEmpty() ? "non service" : m_text;;
+        return m_text.isEmpty() ? "non service" : m_text;
+        ;
     }
 };
 
-} // rio::newton
+} // namespace plugins
 
-} // rio
+} // namespace appkit

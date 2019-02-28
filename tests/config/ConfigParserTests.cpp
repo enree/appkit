@@ -11,8 +11,8 @@
 
 #include "appkit/Paths.h"
 
-#include "ConfigParser.h"
-#include "PTreeRW.h"
+#include "config/ConfigParser.h"
+#include "config/PTreeRW.h"
 
 #include "exception/DuplicateEntity.h"
 

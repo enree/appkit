@@ -12,12 +12,10 @@
 
 #include "PluginException.h"
 
-#include "coriolis/cxx11/make_unique.h"
-
 #include <QDir>
 #include <QPluginLoader>
 
-namespace rio
+namespace appkit
 {
 
 namespace plugins
@@ -35,15 +33,13 @@ PluginWrapper::PluginWrapper(const QString& fileName, const QDir& path)
     }
     else
     {
-        BOOST_THROW_EXCEPTION(PluginException()
-                              << PluginError(m_loader->errorString()));
+        BOOST_THROW_EXCEPTION(
+            PluginException() << PluginError(m_loader->errorString()));
     }
 }
 
-PluginWrapper::PluginWrapper(const QString &name, QObject *object)
-    : m_libraryName(name)
-    , m_instance(object)
-    , m_className(name)
+PluginWrapper::PluginWrapper(const QString& name, QObject* object)
+    : m_libraryName(name), m_instance(object), m_className(name)
 {
 }
 
@@ -56,7 +52,7 @@ PluginWrapper::~PluginWrapper()
     }
 }
 
-QObject *PluginWrapper::instance() const
+QObject* PluginWrapper::instance() const
 {
     return m_instance;
 }
@@ -73,4 +69,4 @@ QString PluginWrapper::libraryName() const
 
 } // namespace plugins
 
-} // namespace rio
+} // namespace appkit

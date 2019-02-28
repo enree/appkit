@@ -11,7 +11,7 @@
 
 #include "appkit/Paths.h"
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include <gtest/gtest.h>
 

@@ -18,7 +18,7 @@
 #include <utility>
 #include <vector>
 
-namespace rio
+namespace appkit
 {
 
 namespace logger
@@ -46,13 +46,13 @@ Levels levels()
 
 } // namespace
 
-std::ostream &operator<<(std::ostream &stream, SeverityLevel level)
+std::ostream& operator<<(std::ostream& stream, SeverityLevel level)
 {
     stream << toString(level);
     return stream;
 }
 
-std::istream &operator>>(std::istream &stream, SeverityLevel &level)
+std::istream& operator>>(std::istream& stream, SeverityLevel& level)
 {
     std::string value;
     stream >> value;
@@ -85,4 +85,4 @@ SeverityLevel toLevel(std::string value)
 
 } // namespace logger
 
-} // namespace rio
+} // namespace appkit

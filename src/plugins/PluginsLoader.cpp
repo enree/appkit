@@ -9,26 +9,23 @@
 
 #include "PluginsLoader.h"
 
-#include "coriolis/qt/Signals.h"
-
-
-namespace rio
+namespace appkit
 {
 
 namespace plugins
 {
 
-PluginsLoader::PluginsLoader(QObject *parent)
-    : QObject(parent)
-    , m_impl(new PluginsLoader_p(this))
+PluginsLoader::PluginsLoader(QObject* parent)
+    : QObject(parent), m_impl(new PluginsLoader_p(this))
 {
-    signal::connect_assert(m_impl, SIGNAL(probing(QString)), this, SIGNAL(probing(QString)));
-    signal::connect_assert(m_impl, SIGNAL(loaded(QString)), this, SIGNAL(loaded(QString)));
-    signal::connect_assert(m_impl, SIGNAL(failed(QString, QString)), this, SIGNAL(failed(QString, QString)));
-    signal::connect_assert(m_impl, SIGNAL(skipped(QString)), this, SIGNAL(skipped(QString)));
+    connect(m_impl, &PluginsLoader_p::probing, this, &PluginsLoader::probing);
+    connect(m_impl, &PluginsLoader_p::loaded, this, &PluginsLoader::loaded);
+    connect(m_impl, &PluginsLoader_p::failed, this, &PluginsLoader::failed);
+    connect(m_impl, &PluginsLoader_p::skipped, this, &PluginsLoader::skipped);
 }
 
-void PluginsLoader::load(bool serviceMode, const QString &subDir, const QString &baseDir)
+void PluginsLoader::load(
+    bool serviceMode, const QString& subDir, const QString& baseDir)
 {
     m_impl->load(serviceMode, subDir, baseDir);
 }
@@ -38,7 +35,7 @@ size_t PluginsLoader::size() const
     return m_impl->size();
 }
 
-void PluginsLoader::add(const QString &name, QObject *object)
+void PluginsLoader::add(const QString& name, QObject* object)
 {
     m_impl->add(name, object);
 }
@@ -55,4 +52,4 @@ PluginsLoader::iterator PluginsLoader::end() const
 
 } // namespace plugins
 
-} // namespace rio
+} // namespace appkit

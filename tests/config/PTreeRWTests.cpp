@@ -8,7 +8,7 @@
  * $Id: $
  */
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include "qt/Strings.h"
 

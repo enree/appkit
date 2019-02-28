@@ -9,25 +9,22 @@
  * $Id: $
  */
 
-
-#include "Paths.h"
 #include "DummyPluginInterface.h"
 
-#include "coriolis/qt/Signals.h"
-#include "coriolis/exception/InvalidPath.h"
-#include "coriolis/plugins/PluginsLoader.h"
-#include "coriolis/plugins/PluginsHolder.h"
-#include "coriolis/plugins/ServicePluginInterface.h"
-#include "coriolis/utils/Macro.h"
+#include "exception/InvalidPath.h"
+#include "plugins/PluginsHolder.h"
+#include "plugins/PluginsLoader.h"
+#include "plugins/ServicePluginInterface.h"
 
-#include <gtest/gtest.h>
+#include "gqtest"
 
 #include <QSignalSpy>
 
 #include <boost/bind.hpp>
-#include <boost/algorithm/cxx11/any_of.hpp>
 
-namespace rio
+#include <algorithm>
+
+namespace appkit
 {
 
 namespace plugins
@@ -49,7 +46,9 @@ TEST(PluginsLoaderTest, loadAllInNonserviceMode)
 
     auto plugins = pluginLoader.plugins<DummyPluginInterface>();
     ASSERT_EQ(1UL, plugins.size());
-    EXPECT_EQ("non service", plugins.front()->instance<DummyPluginInterface>()->text());
+    EXPECT_EQ(
+        "non service",
+        plugins.front()->instance<DummyPluginInterface>()->text());
 
     EXPECT_EQ(6, probing.size());
     EXPECT_EQ(1, loaded.size());
@@ -90,21 +89,27 @@ TEST(PluginsLoaderTest, testPluginsLoaderRange)
     PluginsLoader pluginLoader;
     pluginLoader.load(true, PLUGIN_PATH);
 
-    bool nonServiceFound = boost::algorithm::any_of(utils::make_range(pluginLoader),
-        boost::bind(&PluginWrapper::className, _1) == "rio::plugins::NonServicePlugin");
+    bool nonServiceFound = std::any_of(
+        pluginLoader.begin(),
+        pluginLoader.end(),
+        boost::bind(&PluginWrapper::className, _1)
+            == "appkit::plugins::NonServicePlugin");
 
     EXPECT_TRUE(nonServiceFound);
 
-    bool nonExistNotFound = boost::algorithm::any_of(utils::make_range(pluginLoader),
+    bool nonExistNotFound = std::any_of(
+        pluginLoader.begin(),
+        pluginLoader.end(),
         boost::bind(&PluginWrapper::className, _1) == "bla-bla-bla");
     EXPECT_FALSE(nonExistNotFound);
 }
 
-
 TEST(PluginsLoaderTest, loadFromNonexistingPath)
 {
     PluginsLoader pluginLoader;
-    EXPECT_THROW(pluginLoader.load(true, "The path never exists"), exception::InvalidPath);
+    EXPECT_THROW(
+        pluginLoader.load(true, "The path never exists"),
+        exception::InvalidPath);
 }
 
 TEST(PluginsLoaderTest, manualLoadAndSkipByClassName)
@@ -117,7 +122,7 @@ TEST(PluginsLoaderTest, manualLoadAndSkipByClassName)
     QSignalSpy skipped(&pluginLoader, SIGNAL(skipped(QString)));
 
     QObject* nonServicePlugin(new QObject);
-    pluginLoader.add("rio::plugins::NonServicePlugin", nonServicePlugin);
+    pluginLoader.add("appkit::plugins::NonServicePlugin", nonServicePlugin);
 
     pluginLoader.load(false, PLUGIN_PATH, "");
 
@@ -139,11 +144,14 @@ TEST(PluginsLoaderTest, testBasicPluginsHolderUsage)
     PluginsHolder<ServicePluginInterface> servicePluginsHolder(pluginLoader);
     EXPECT_EQ(1UL, pluginLoader.size());
 
-    EXPECT_EQ(1, std::distance(servicePluginsHolder.begin(), servicePluginsHolder.end()));
+    EXPECT_EQ(
+        1,
+        std::
+            distance(servicePluginsHolder.begin(), servicePluginsHolder.end()));
 
     auto it = servicePluginsHolder.begin();
 
-    EXPECT_EQ("rio::plugins::ServicePlugin", it->wrapper->className());
+    EXPECT_EQ("appkit::plugins::ServicePlugin", it->wrapper->className());
 
     ++it;
     EXPECT_EQ(it, servicePluginsHolder.end());
@@ -160,18 +168,17 @@ TEST(PluginsLoaderTest, testPluginsHolderAsRange)
     EXPECT_EQ(0UL, pluginLoader.size());
 
     // Just check if it compiles
-    BOOST_FOREACH(const DummyInterfaceHolder::value_type& iface, utils::make_range(servicePluginsHolder))
+    for (const auto& iface: servicePluginsHolder)
     {
         iface()->setText("dummy");
     }
 
-    BOOST_FOREACH(const DummyInterfaceHolder::value_type& iface, utils::make_range(servicePluginsHolder))
+    for (const auto& iface: servicePluginsHolder)
     {
         EXPECT_EQ("dummy", iface()->text());
     }
-
 }
 
-} // plugins
+} // namespace plugins
 
-} // rio
+} // namespace appkit
