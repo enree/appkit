@@ -1,23 +1,20 @@
 /** @file
  * @brief      Service plugin for testing.
  *
- * @ingroup RIO_CORIOLIS
- *
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */
 
 #pragma once
 
-#include "coriolis/plugins/ServicePluginInterface.h"
+#include "plugins/ServicePluginInterface.h"
 
 #include "../DummyPluginInterface.h"
 
 #include <QObject>
 #include <QtPlugin>
 
-namespace rio
+namespace appkit
 {
 
 namespace plugins
@@ -27,17 +24,15 @@ namespace plugins
  * Dummy widget for testing
  */
 
-class ServicePlugin
-    : public QObject
-    , public ServicePluginInterface
-    , public DummyPluginInterface
+class ServicePlugin : public QObject,
+                      public ServicePluginInterface,
+                      public DummyPluginInterface
 {
     Q_OBJECT
 
-#ifdef QT5_BUILD
-    Q_PLUGIN_METADATA(IID "com.pkb-rio.dev.ServicePluginInterface")
-#endif
-    Q_INTERFACES(rio::plugins::ServicePluginInterface rio::plugins::DummyPluginInterface)
+    Q_PLUGIN_METADATA(IID "com.pkb-appkit.dev.ServicePluginInterface")
+    Q_INTERFACES(appkit::plugins::ServicePluginInterface
+                     appkit::plugins::DummyPluginInterface)
 
 public:
     ServicePlugin()
@@ -45,12 +40,12 @@ public:
         m_text = "service";
     }
 
-    virtual QString text() const
+    QString text() const override
     {
         return m_text;
     }
 };
 
-} // rio::newton
+} // namespace plugins
 
-} // rio
+} // namespace appkit

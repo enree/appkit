@@ -1,17 +1,14 @@
-/*
+/**
  * @file
  * @brief File parser tests
  *
- * @ingroup RIO_CORIOLIS
- *
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */
 
 #include "appkit/Paths.h"
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include <gtest/gtest.h>
 

@@ -1,19 +1,15 @@
 /** @file
  * @brief  Translation utilities for std strings. Declaration
  *
- * @addtogroup RIO_ICS
- *
- * @copyright  (C) 2016 PKB RIO Design Department
- *
  * $Id: $
  */
 
-#include "Translations.h"
+#include "translations/Translations.h"
 
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
 
-namespace rio
+namespace appkit
 {
 
 namespace translate
@@ -64,4 +60,4 @@ std::vector<std::string> installBoostTranslation(const std::string& path)
 
 } // namespace translate
 
-} // namespace rio
+} // namespace appkit

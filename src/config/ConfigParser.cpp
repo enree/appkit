@@ -1,25 +1,22 @@
 /**
- * @ingroup RIO_CORIOLIS
  * @file
  * @brief      Class for simplifing ptree parsing
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */
 
-#include "ConfigParser.h"
+#include "config/ConfigParser.h"
+
+#include "config/PTreeRW.h"
+#include "config/PTreeUtils.h"
 
 #include "exception/DuplicateEntity.h"
 #include "exception/KeyInfo.h"
-
-#include "PTreeRW.h"
-#include "PTreeUtils.h"
 
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/foreach.hpp>
 #include <boost/range/algorithm/transform.hpp>
 
 #include <algorithm>
@@ -113,7 +110,7 @@ ConfigParser& ConfigParser::addPtree(
     std::set<std::string> leaves;
     pullLeaves(leaves, ptree);
 
-    BOOST_FOREACH (const std::string& leaf, leaves)
+    for (const auto& leaf: leaves)
     {
         m_keySources[leaf] = source;
     }
@@ -192,7 +189,7 @@ void ConfigParser::readAll() const
 std::set<std::string> ConfigParser::keys() const
 {
     std::set<std::string> optionsKeys;
-    BOOST_FOREACH (const Options::value_type& value, m_options)
+    for (const auto& value: m_options)
     {
         std::set<std::string> subkeys = value.second->keys();
         optionsKeys.insert(subkeys.begin(), subkeys.end());
@@ -275,16 +272,16 @@ void ConfigParser::printConfigOptionsUsage(
     size_t keyMaxSize = 0;
     size_t descMaxSize = 0;
 
-    BOOST_FOREACH (const Options::value_type& value, m_options)
+    for (const auto& value: m_options)
     {
-        boost::shared_ptr<Option> option = value.second;
+        const auto& option = value.second;
         keyMaxSize = std::max(keyMaxSize, option->key().size());
         descMaxSize = std::max(descMaxSize, option->description(indent).size());
     }
 
-    BOOST_FOREACH (const Options::value_type& value, m_options)
+    for (const auto& value: m_options)
     {
-        boost::shared_ptr<Option> option = value.second;
+        const auto& option = value.second;
         printOption(
             option->key(),
             std::max(MIN_DESCRIPTION_OFFSET, keyMaxSize + USAGE_INDENT_SIZE),

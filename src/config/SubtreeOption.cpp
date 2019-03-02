@@ -3,13 +3,12 @@
  *
  * @ingroup
  *
- * @copyright  (C) 2016 PKB RIO Design Department
- *
  * $Id: $
  */
 
-#include "SubtreeOption.h"
-#include "ConfigParser.h"
+#include "config/SubtreeOption.h"
+
+#include "config/ConfigParser.h"
 
 #include "appkit/Translate.h"
 

@@ -1,9 +1,6 @@
 /** @file
  * @brief     App test aux declarartion
  *
- * @ingroup   RIO_CORIOLIS
- *
- * @copyright (C) 2017 PKB RIO Design Department
  *
  * $Id: $
  */

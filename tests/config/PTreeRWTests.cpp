@@ -1,14 +1,10 @@
 /** @file
  * @brief Test suit for testing ptree rw methods
  *
- * @ingroup
- *
- * @copyright  (C) 2017 PKB RIO Design Department
- *
  * $Id: $
  */
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include "qt/Strings.h"
 

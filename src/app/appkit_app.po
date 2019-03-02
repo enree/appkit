@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.1\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: en_US\n"
+"X-Source-Language: C\n"
+
+#: Paths.cpp:13
+msgid "Config path: "
+msgstr "Конфиг: "
+
+#: Paths.cpp:14
+msgid "Plugin path: "
+msgstr "Плагины: "
+
+#: Paths.cpp:15
+msgid "Cache path: "
+msgstr "Кэш: "
+
+#: Paths.cpp:16
+msgid "Log path: "
+msgstr "Лог: "
+
+#: AppManifest.cpp:40
+msgid "Copyright (C) 2018-{1}, {2}"
+msgstr "Все права защищены (C) 2018-{1}, {2}"
+
+#: AppManifest.cpp:53
+msgid "Version: {1}"
+msgstr "Версия: {1}"
+
+#: AppManifest.cpp:54
+msgid "Build: {1}"
+msgstr "Билд: {2}"
+
+#: Application.cpp:83
+msgid "common config file"
+msgstr "общий файл настроек"
+
+#: Application.cpp:88
+msgid "command line"
+msgstr "командная строка"

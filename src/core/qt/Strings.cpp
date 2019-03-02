@@ -4,7 +4,7 @@
  * $Id: $
  */
 
-#include "Strings.h"
+#include "qt/Strings.h"
 
 namespace strings
 {
@@ -21,3 +21,19 @@ std::string toUtf8(const QString& str)
 }
 
 } // namespace strings
+
+std::ostream& operator<<(std::ostream& output, const QString& str)
+{
+    output << strings::toUtf8(str);
+    return output;
+}
+
+std::istream& operator>>(std::istream& input, QString& str)
+{
+    // We should read the whole input buffer
+    std::istreambuf_iterator<char> eos;
+    std::string string(std::istreambuf_iterator<char>(input), eos);
+
+    str = strings::fromUtf8(string);
+    return input;
+}

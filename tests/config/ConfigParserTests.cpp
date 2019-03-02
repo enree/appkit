@@ -1,18 +1,15 @@
-/*
+/**
  * @file
  * @brief Test suite for ConfigParser
  *
- * @ingroup RIO_CORIOLIS
- *
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */
 
 #include "appkit/Paths.h"
 
-#include "ConfigParser.h"
-#include "PTreeRW.h"
+#include "config/ConfigParser.h"
+#include "config/PTreeRW.h"
 
 #include "exception/DuplicateEntity.h"
 

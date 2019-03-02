@@ -1,4 +1,4 @@
-#include "UnixSignalHandler.h"
+#include "app/UnixSignalHandler.h"
 
 #include <QCoreApplication>
 #include <QSocketNotifier>
@@ -6,9 +6,6 @@
 #include <csignal>
 #include <sys/socket.h>
 #include <unistd.h>
-
-namespace shakespear
-{
 
 namespace appkit
 {
@@ -78,5 +75,3 @@ void installSignalHandler(gsl::not_null<QCoreApplication*> app)
 }
 
 } // namespace appkit
-
-} // namespace shakespear

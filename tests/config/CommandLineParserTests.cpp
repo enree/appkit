@@ -2,14 +2,11 @@
  * @file
  * @brief Command line parser tests
  *
- * @ingroup RIO_CORIOLIS
- *
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include "gqtest"
 

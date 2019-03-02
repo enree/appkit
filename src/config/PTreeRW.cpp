@@ -2,16 +2,12 @@
  * @file
  * @brief PTree read/write routines. Implementation.
  *
- * @ingroup RIO_CORIOLIS
- *
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  *
-**/
+ **/
 
-
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include <boost/program_options/cmdline.hpp>
 #include <boost/program_options/config.hpp>
@@ -25,9 +21,8 @@ namespace appkit
 namespace config
 {
 
-boost::property_tree::ptree fromCommandLine(int argc,
-    char **argv,
-    const std::set<std::string>& keys, bool strict)
+boost::property_tree::ptree fromCommandLine(
+    int argc, char** argv, const std::set<std::string>& keys, bool strict)
 {
     using namespace boost::program_options;
 
@@ -35,7 +30,7 @@ boost::property_tree::ptree fromCommandLine(int argc,
     // Set the supported options.
     options_description desc;
 
-    for(const auto& key: keys)
+    for (const auto& key: keys)
     {
         desc.add_options()(key.c_str(), value<std::string>());
     }
@@ -53,8 +48,8 @@ boost::property_tree::ptree fromCommandLine(int argc,
     store(parsed, vm);
     notify(vm);
 
-    for(variables_map::const_iterator vmIt = vm.begin();
-        vmIt != vm.end(); ++vmIt)
+    for (variables_map::const_iterator vmIt = vm.begin(); vmIt != vm.end();
+         ++vmIt)
     {
         {
             const std::string optionValue = vm[vmIt->first].as<std::string>();

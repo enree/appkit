@@ -3,23 +3,20 @@
  *
  * @ingroup
  *
- * @copyright  (C) 2016 PKB RIO Design Department
- *
  * $Id: $
  */
 
-
-#include "LogParams.h"
+#include "log/LogParams.h"
 
 #include <boost/algorithm/string/join.hpp>
 
-namespace rio
+namespace appkit
 {
 
 namespace logger
 {
 
-std::ostream &operator<<(std::ostream &stream, const LogParams &level)
+std::ostream& operator<<(std::ostream& stream, const LogParams& level)
 {
     stream << boost::algorithm::join(level.m_params, ", ");
     return stream;
@@ -27,4 +24,4 @@ std::ostream &operator<<(std::ostream &stream, const LogParams &level)
 
 } // namespace logger
 
-} // namespace rio
+} // namespace appkit
