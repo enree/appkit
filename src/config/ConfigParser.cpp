@@ -7,13 +7,13 @@
  * $Id: $
  */
 
-#include "ConfigParser.h"
+#include "config/ConfigParser.h"
+
+#include "config/PTreeRW.h"
+#include "config/PTreeUtils.h"
 
 #include "exception/DuplicateEntity.h"
 #include "exception/KeyInfo.h"
-
-#include "PTreeRW.h"
-#include "PTreeUtils.h"
 
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>

@@ -10,7 +10,7 @@
 
 #include "CustomSyslogFactory.h"
 
-#include "SeverityLevel.h"
+#include "log/SeverityLevel.h"
 
 #include <boost/log/sinks/sync_frontend.hpp>
 #include <boost/log/sinks/syslog_backend.hpp>

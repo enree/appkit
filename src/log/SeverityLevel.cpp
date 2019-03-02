@@ -8,7 +8,7 @@
  * $Id: $
  */
 
-#include "SeverityLevel.h"
+#include "log/SeverityLevel.h"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/bind.hpp>

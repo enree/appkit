@@ -8,7 +8,7 @@
  * $Id: $
  */
 
-#include "LogParams.h"
+#include "log/LogParams.h"
 
 #include <boost/algorithm/string/join.hpp>
 

@@ -8,7 +8,7 @@
  * $Id: $
  */
 
-#include "PluginWrapper.h"
+#include "plugins/PluginWrapper.h"
 
 #include "PluginException.h"
 

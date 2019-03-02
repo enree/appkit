@@ -18,7 +18,6 @@ function(generateTranslationMacros TARGET TARGET_PATH)
         string(TOUPPER ${TARGET} TR_MACRO_NAME)
     endif()
 
-    message("!!!!!!${TARGET_PATH}")
     configure_file(${APPKIT_PATH}/src/translations/translate.h.in
         ${TARGET_PATH}/Translate.h @ONLY)
 endfunction(generateTranslationMacros)

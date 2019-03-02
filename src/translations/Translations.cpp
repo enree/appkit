@@ -8,7 +8,7 @@
  * $Id: $
  */
 
-#include "Translations.h"
+#include "translations/Translations.h"
 
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>

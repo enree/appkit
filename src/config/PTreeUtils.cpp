@@ -10,9 +10,9 @@
  *
  **/
 
-#include "PTreeUtils.h"
+#include "config/PTreeUtils.h"
 
-#include "PTreeRW.h"
+#include "config/PTreeRW.h"
 
 #include "exception/InvalidConfigEntry.h"
 #include "exception/KeyInfo.h"

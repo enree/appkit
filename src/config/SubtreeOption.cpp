@@ -8,8 +8,9 @@
  * $Id: $
  */
 
-#include "SubtreeOption.h"
-#include "ConfigParser.h"
+#include "config/SubtreeOption.h"
+
+#include "config/ConfigParser.h"
 
 #include "appkit/Translate.h"
 

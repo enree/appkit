@@ -19,7 +19,7 @@ namespace plugins
 void FactoryLoader::loadPlugins(
     PluginsLoader& pluginsLoader, const QString& path, const QString& subdir)
 {
-    m_logger(tr("Loading plugins from {1}/{2}").arg(path, subdir));
+    m_logger(tr("Loading plugins from %1/%2").arg(path, subdir));
 
     connect(
         &pluginsLoader,

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "PluginsHolder.h"
+#include "plugins/PluginsHolder.h"
 
 #include <QObject>
 

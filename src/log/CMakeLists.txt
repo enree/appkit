@@ -4,11 +4,9 @@ item(appkit_log)
 add_definitions(-DBOOST_LOG_DYN_LINK)
 set(Boost_USE_MULTITHREADED ON)
 
-sources(logcore)
-sources(printers GLOBBING "printers/*")
-
 sharedLib(${PROJECT_NAME}
-    SOURCES ${logcore} ${printers}
+    GLOBBING "*"
+    RECURSIVE true
     BOOST log system thread log_setup
     COMPONENT ${PROJECT_NAME})
 threads(${PROJECT_NAME})
