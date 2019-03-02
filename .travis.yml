@@ -89,7 +89,7 @@ before_script:
   # have CMake to generate build files
   - cd "${TRAVIS_BUILD_DIR}"
   - mkdir build && cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_STANDARD=$USE_CXX_STANDARD "${EXTRA_OPTIONS}"
+  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_STANDARD=$USE_CXX_STANDARD
   
 script:
   # build and run tests
