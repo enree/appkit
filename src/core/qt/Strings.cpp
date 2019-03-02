@@ -4,7 +4,7 @@
  * $Id: $
  */
 
-#include "Strings.h"
+#include "qt/Strings.h"
 
 namespace strings
 {

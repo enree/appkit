@@ -4,6 +4,6 @@ executable(
     ${PROJECT_NAME}
     GLOBBING "*" 
     RECURSIVE false
-    LIBS coriolis_app pthread
-    BOOST thread system
+    LIBS appkit_app pthread
+    BOOST thread system log
     NOINSTALL true)

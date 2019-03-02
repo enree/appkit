@@ -1,34 +1,25 @@
 /** @file
  * @brief     Librarian test suite
  *
- * @ingroup   RIO_CORIOLIS
- *
- * @copyright (C) 2017 PKB RIO Design Department
  *
  * $Id: $
  */
 
-#include "Paths.h"
-
 #include "aux/aux.h"
 
-#include "coriolis/app/AppSentinel.h"
-#include "coriolis/qt/StringUtils.h"
+#include "app/AppSentinel.h"
+#include "qt/Strings.h"
 
 #include <QProcess>
 
-#include <gtest/gtest.h>
-
+#include "gqtest"
 
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/thread/thread.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
+#include <boost/thread/thread.hpp>
 
-namespace rio
-{
-
-namespace app
+namespace appkit
 {
 
 namespace tests
@@ -37,10 +28,10 @@ namespace tests
 std::string valid_executable_filename()
 {
     static std::string filename;
-    if(filename.empty())
+    if (filename.empty())
     {
         using namespace boost::filesystem;
-        path directory(PLUGIN_PATH);
+        path directory(AUX_PATH);
         for (directory_iterator iter(directory), end; iter != end; ++iter)
         {
             std::string name = iter->path().string();
@@ -63,8 +54,8 @@ TEST(AppSentinelTest, duplicateRun)
 {
     QProcess auxProc;
     auxProc.start(
-            strings::fromUtf8(valid_executable_filename()),
-            QStringList() << name << msg);
+        strings::fromUtf8(valid_executable_filename()),
+        QStringList() << name << msg);
 
     auxProc.waitForStarted();
     EXPECT_EQ(QProcess::Running, auxProc.state());
@@ -78,8 +69,6 @@ TEST(AppSentinelTest, duplicateRun)
     EXPECT_EQ(NO_ERROR, auxProc.exitCode());
 }
 
-} // tests
+} // namespace tests
 
-} // app
-
-} // rio
+} // namespace appkit

@@ -1,16 +1,16 @@
 project(app_test)
 
+set(AUX_PATH ${CMAKE_CURRENT_BINARY_DIR}/aux_app)
+add_definitions(-DAUX_PATH="${AUX_PATH}")
+
 gtest(${PROJECT_NAME}
     GLOBBING "*" 
     RECURSIVE false
     QT Core
-    LIBS coriolis_app coriolis_qt
+    LIBS appkit_app appkit_core
     BOOST filesystem regex system thread)
 
-set(PLUGIN_PATH ${CMAKE_CURRENT_BINARY_DIR}/plugins)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PLUGIN_PATH})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${AUX_PATH})
 
 include_directories(.)
 add_subdirectory(aux)
-
-configure_file(${TEMPLATES_PATH}/paths.h.in Paths.h @ONLY)

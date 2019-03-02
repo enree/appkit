@@ -1,10 +1,6 @@
 /** @file
  * @brief  Wraps Qt plugin functionality
  *
- * @ingroup
- *
- * @copyright  (C) 2017 PKB RIO Design Department
- *
  * $Id: $
  */
 

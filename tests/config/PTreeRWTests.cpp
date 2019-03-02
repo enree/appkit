@@ -1,10 +1,6 @@
 /** @file
  * @brief Test suit for testing ptree rw methods
  *
- * @ingroup
- *
- * @copyright  (C) 2017 PKB RIO Design Department
- *
  * $Id: $
  */
 

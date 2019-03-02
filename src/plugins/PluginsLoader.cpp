@@ -1,8 +1,6 @@
 /**
- * @ingroup RIO_CORIOLIS
  * @file
  * @brief      Plugins loader
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */

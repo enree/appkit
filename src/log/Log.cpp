@@ -101,3 +101,5 @@ void Log::setupAttributes()
 } // namespace logger
 
 } // namespace appkit
+
+DEFINE_LOGGER(LOG)

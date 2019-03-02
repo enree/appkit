@@ -2,11 +2,12 @@ item(appkit_app)
 
 sharedLib(${PROJECT_NAME} 
     GLOBBING "*" 
-    DEPENDS coriolis_core coriolis_qt
+    RECURSIVE true
+    DEPENDS appkit_config appkit_log
     QT Core
-    BOOST filesystem system locale
+    BOOST filesystem system locale log log_setup
     COMPONENT ${PROJECT_NAME})
 
 lint(${PROJECT_NAME})
 
-#tests(app)
+tests(app)

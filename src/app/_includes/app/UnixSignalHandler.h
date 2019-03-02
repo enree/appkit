@@ -10,9 +10,6 @@
 class QCoreApplication;
 class QSocketNotifier;
 
-namespace shakespear
-{
-
 namespace appkit
 {
 
@@ -43,5 +40,3 @@ private:
 void installSignalHandler(gsl::not_null<QCoreApplication*> app);
 
 } // namespace appkit
-
-} // namespace shakespear

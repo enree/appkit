@@ -1,8 +1,7 @@
-/** @ingroup RIO_CORIOLIS
+/**
  *  @file
  *  @brief Dummy plugin interface
  *
- *  @copyright  (C) 2014 PKB RIO Software Development Department
  *
  *  $Id: $
  */

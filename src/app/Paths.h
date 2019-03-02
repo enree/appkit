@@ -2,9 +2,6 @@
 
 #include <string>
 
-namespace shakespear
-{
-
 namespace appkit
 {
 
@@ -25,5 +22,3 @@ struct Paths
 std::ostream& operator<<(std::ostream& out, const Paths& paths);
 
 } // namespace appkit
-
-} // namespace shakespear

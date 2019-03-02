@@ -36,27 +36,27 @@ msgstr "индексированное, значение по умолчанию
 msgid "indexed, mandatory"
 msgstr "нумерованное, обязательное"
 
-#: ConfigParser.cpp:85
+#: ConfigParser.cpp:83
 msgid "Print help"
 msgstr "Вывести справку"
 
-#: ConfigParser.cpp:87
+#: ConfigParser.cpp:85
 msgid "Print version"
 msgstr "Вывести версию"
 
-#: ConfigParser.cpp:89
+#: ConfigParser.cpp:87
 msgid "Set config file path"
 msgstr "Задать путь к файлу конфигурации"
 
-#: ConfigParser.cpp:156
+#: ConfigParser.cpp:154
 msgid "unknown"
 msgstr "неизвестно"
 
-#: ConfigParser.cpp:163
+#: ConfigParser.cpp:161
 msgid "Source: {1}, key: {2}, value: {3} "
 msgstr "Источник: {1}, ключ: {2}, значение: {3} "
 
-#: ConfigParser.cpp:178
+#: ConfigParser.cpp:176
 msgid ""
 "Unable to parse settings. {1}\n"
 "{2}\n"
@@ -66,7 +66,7 @@ msgstr ""
 "{2}\n"
 "Использование:\n"
 
-#: ConfigParser.cpp:185
+#: ConfigParser.cpp:183
 msgid ""
 "Unable to parse settings. {1}\n"
 "Usage:\n"
@@ -74,22 +74,22 @@ msgstr ""
 "Невозможно прочитать настройки. {1}\n"
 "Использование:\n"
 
-#: ConfigParser.cpp:234
+#: ConfigParser.cpp:232
 msgid "Program options"
 msgstr "Настройки приложения"
 
-#: ConfigParser.cpp:237
+#: ConfigParser.cpp:235
 msgid "Config options"
 msgstr "Настройки конфигурации"
 
-#: ConfigParser.cpp:318
+#: ConfigParser.cpp:316
 msgid "Config file path"
 msgstr "Путь к файлу конфигурации"
 
-#: ConfigParser.cpp:324
+#: ConfigParser.cpp:322
 msgid "command line"
 msgstr "командная строка"
 
-#: SubtreeOption.cpp:32
+#: SubtreeOption.cpp:30
 msgid "{1}\n"
 msgstr "{1}\n"

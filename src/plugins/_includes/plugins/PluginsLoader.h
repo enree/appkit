@@ -1,5 +1,4 @@
 /**
- * @ingroup RIO_CORIOLIS
  * @file
  * @brief      Plugins loader
  *

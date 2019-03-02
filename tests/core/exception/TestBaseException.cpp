@@ -1,10 +1,7 @@
-/*
+/**
  * @file
  * @brief Test for BaseException
  *
- * @ingroup RIO_CORIOLIS
- *
- * @copyright  (C) 2015 PKB RIO Design Department
  *
  * $Id: $
  */

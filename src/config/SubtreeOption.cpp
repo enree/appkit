@@ -3,8 +3,6 @@
  *
  * @ingroup
  *
- * @copyright  (C) 2016 PKB RIO Design Department
- *
  * $Id: $
  */
 

@@ -8,6 +8,7 @@
 
 #include <boost/log/common.hpp>
 #include <boost/log/sources/severity_logger.hpp>
+#include <boost/log/utility/manipulators/add_value.hpp>
 #include <boost/log/utility/setup/filter_parser.hpp>
 #include <boost/log/utility/setup/formatter_parser.hpp>
 #include <boost/log/utility/setup/from_settings.hpp>

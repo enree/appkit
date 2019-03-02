@@ -3,14 +3,13 @@
  *
  * @ingroup
  *
- * @copyright  (C) 2016 PKB RIO Design Department
  *
  * $Id: $
  */
 
 #pragma once
 
-namespace shakespear
+namespace appkit
 {
 
 enum ReturnCode
@@ -23,4 +22,4 @@ enum ReturnCode
     DUPLICATE_RUN_ERROR
 };
 
-} // namespace shakespear
+} // appkit

@@ -2,15 +2,13 @@
 
 #include "Paths.h"
 
-#include "coriolis/app/AppManifest.h"
-#include "coriolis/config/ConfigParser.h"
+#include "AppManifest.h"
+
+#include "config/ConfigParser.h"
 
 #include <QCoreApplication>
 
 #include <boost/noncopyable.hpp>
-
-namespace shakespear
-{
 
 namespace appkit
 {
@@ -21,7 +19,7 @@ public:
     Application(
         int argc,
         char** argv,
-        const appkit::app::AppManifest& manifest,
+        const appkit::AppManifest& manifest,
         QCoreApplication* app,
         appkit::Paths paths);
 
@@ -34,11 +32,9 @@ private:
 private:
     int m_argc;
     char** m_argv;
-    const appkit::app::AppManifest& m_manifest;
-    appkit::config::ConfigParser m_configParser;
-    appkit::Paths m_paths;
+    const AppManifest& m_manifest;
+    config::ConfigParser m_configParser;
+    Paths m_paths;
 };
 
 } // namespace appkit
-
-} // namespace shakespear

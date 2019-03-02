@@ -1,10 +1,6 @@
 /** @file
  * @brief  Translation utilities for std strings. Declaration
  *
- * @addtogroup RIO_ICS
- *
- * @copyright  (C) 2016 PKB RIO Design Department
- *
  * $Id: $
  */
 

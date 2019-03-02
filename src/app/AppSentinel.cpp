@@ -1,35 +1,31 @@
 /** @file
  * @brief  Application sentinel class. Implementation.
  *
- * @ingroup RIO_STOKES
- *
- * @copyright  (C) 2017 PKB RIO Design Department
  *
  * $Id: $
  */
 
-#include "AppSentinel.h"
+#include "app/AppSentinel.h"
 
 #include "Platform.h"
 
-#include "coriolis/cxx11/make_unique.h"
-#include "coriolis/exception/BadRange.h"
+#include "exception/BadRange.h"
 
 // This is workaround for MSVS operating system, that have no POSIX
 // interprocess system calls implemented
 #ifdef PLATFORM_MSVS
-    #define USE_BOOST_XSI_INTERPROCESS
+#define USE_BOOST_XSI_INTERPROCESS
 #else
-    #define USE_BOOST_POSIX_INTERPROCESS
+#define USE_BOOST_POSIX_INTERPROCESS
 #endif
 
 #if defined USE_BOOST_XSI_INTERPROCESS
-    #include <boost/interprocess/errors.hpp>
-    #include <boost/interprocess/xsi_key.hpp>
-    #include <boost/interprocess/xsi_shared_memory.hpp>
+#include <boost/interprocess/errors.hpp>
+#include <boost/interprocess/xsi_key.hpp>
+#include <boost/interprocess/xsi_shared_memory.hpp>
 #elif defined USE_BOOST_POSIX_INTERPROCESS
-    #include <boost/interprocess/shared_memory_object.hpp>
-    #include <boost/interprocess/sync/named_mutex.hpp>
+#include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/sync/named_mutex.hpp>
 #endif
 
 #include <boost/interprocess/mapped_region.hpp>
@@ -44,18 +40,15 @@
 #if defined USE_BOOST_XSI_INTERPROCESS
 #include <map>
 
-#include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <sys/types.h>
 #endif
 
 using namespace boost::interprocess;
 using namespace boost::filesystem;
 
-namespace rio
-{
-
-namespace app
+namespace appkit
 {
 
 namespace
@@ -70,20 +63,19 @@ const int xsi_id = 0x9D;
 class XsiNamedMutex
 {
 public:
-    explicit XsiNamedMutex(const char* name):
-        m_semid(-1)
+    explicit XsiNamedMutex(const char* name) : m_semid(-1)
     {
         key_t key;
-        if(name)
+        if (name)
         {
             path filepath = temp_directory_path();
             filepath /= name;
 
             key = ::ftok(filepath.string().c_str(), xsi_id);
-            if(((key_t)-1) == key)
+            if (((key_t)-1) == key)
             {
-                 error_info err = system_error_code();
-                 throw interprocess_exception(err);
+                error_info err = system_error_code();
+                throw interprocess_exception(err);
             }
         }
 
@@ -113,7 +105,7 @@ public:
     static void remove(const char* name)
     {
         SemIds::iterator it = m_ids.find(name);
-        if(it != m_ids.end())
+        if (it != m_ids.end())
         {
             ::semctl(it->second, IPC_RMID, 0);
             m_ids.erase(it);
@@ -141,7 +133,6 @@ private:
     static SemIds m_ids;
 };
 
-
 XsiNamedMutex::SemIds XsiNamedMutex::m_ids;
 
 #endif
@@ -157,17 +148,13 @@ std::string getString(const mapped_region& region)
 void setString(const mapped_region& region, const std::string& str)
 {
     std::strncpy(
-            static_cast<char*>(region.get_address()),
-            str.c_str(),
-            SHM_STRING_SIZE);
+        static_cast<char*>(region.get_address()), str.c_str(), SHM_STRING_SIZE);
 }
 
 } // namespace
 
-AppSentinel::AppSentinel(std::string name):
-    m_name(std::move(name)),
-    m_id(0),
-    m_own(false)
+AppSentinel::AppSentinel(std::string name)
+    : m_name(std::move(name)), m_id(0), m_own(false)
 {
 #if defined USE_BOOST_XSI_INTERPROCESS
     XsiNamedMutex::remove(m_name.c_str());
@@ -184,7 +171,7 @@ AppSentinel::~AppSentinel()
 #elif defined USE_BOOST_POSIX_INTERPROCESS
     named_mutex::remove(m_name.c_str());
 #endif
-    if(m_own)
+    if (m_own)
     {
 #if defined USE_BOOST_XSI_INTERPROCESS
         xsi_shared_memory::remove(m_id);
@@ -217,7 +204,7 @@ bool AppSentinel::lock(const std::string& message)
     // Global locking
     m_lock = std::make_unique<file_lock>(filepath.string().c_str());
 
-    if(m_lock->try_lock())
+    if (m_lock->try_lock())
     {
         // Create memory object
 #if defined USE_BOOST_XSI_INTERPROCESS
@@ -241,13 +228,13 @@ bool AppSentinel::lock(const std::string& message)
 #endif
         m_region = std::make_unique<mapped_region>(shm, read_write);
 
-        if(!message.empty())
+        if (!message.empty())
         {
-            if(message.size() > SHM_STRING_SIZE - 1)
+            if (message.size() > SHM_STRING_SIZE - 1)
             {
                 BOOST_THROW_EXCEPTION(
-                        exception::BadRange() <<
-                        exception::ExceptionInfo("Message string is too large "));
+                    exception::BadRange() << exception::ExceptionInfo(
+                        "Message string is too large "));
             }
 
             setString(*m_region, message);
@@ -259,7 +246,7 @@ bool AppSentinel::lock(const std::string& message)
 
 std::string AppSentinel::readMessage()
 {
-    if(m_region)
+    if (m_region)
     {
 #if defined USE_BOOST_XSI_INTERPROCESS
         XsiNamedMutex mtx(m_name.c_str());
@@ -275,6 +262,4 @@ std::string AppSentinel::readMessage()
     return std::string();
 }
 
-} // namespace app
-
-} // namespace rio
+} // namespace appkit

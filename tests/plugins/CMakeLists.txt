@@ -1,7 +1,6 @@
 project(plugins_test)
 
 set(PLUGIN_PATH ${CMAKE_CURRENT_BINARY_DIR}/plugins)
-
 add_definitions(-DPLUGIN_PATH="${PLUGIN_PATH}")
 
 gtest(${PROJECT_NAME}
@@ -17,9 +16,3 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PLUGIN_PATH})
 
 add_subdirectory(service)
 add_subdirectory(nonservice)
-
-
-
-#generatePaths(appkit SRC)
-
-#configure_file(${TEMPLATES_PATH}/paths.h.in Paths.h @ONLY)

@@ -1,10 +1,6 @@
 /** @file
  * @brief     Load plugins for factory
  *
- * @ingroup   RIO_NEWTON
- *
- * @copyright (C) 2017 PKB RIO Design Department
- *
  * $Id: $
  */
 
