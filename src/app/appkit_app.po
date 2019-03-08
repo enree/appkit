@@ -39,10 +39,10 @@ msgstr "Версия: {1}"
 msgid "Build: {1}"
 msgstr "Билд: {2}"
 
-#: Application.cpp:83
+#: Application.cpp:97
 msgid "common config file"
 msgstr "общий файл настроек"
 
-#: Application.cpp:88
+#: Application.cpp:102
 msgid "command line"
 msgstr "командная строка"

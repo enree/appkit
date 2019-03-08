@@ -12,51 +12,27 @@ msgstr ""
 "X-Language: ru\n"
 "X-Source-Language: C\n"
 
-#: _includes/config/ValueOption.h:56
-msgid "default value = {1}"
-msgstr "значение по умолчанию = {1}"
-
-#: _includes/config/ValueOption.h:57
-msgid "mandatory"
-msgstr "обязательное"
-
-#: _includes/config/ValueOption.h:59 _includes/config/IndexedOption.h:76
-msgid "{1} ({2})"
-msgstr "{1} ({2})"
-
-#: _includes/config/ArrayOption.h:48
-msgid "{1} (array)"
-msgstr "{1} (массив)"
-
-#: _includes/config/IndexedOption.h:73
-msgid "indexed, default value = {1}"
-msgstr "индексированное, значение по умолчанию = {1}"
-
-#: _includes/config/IndexedOption.h:74
-msgid "indexed, mandatory"
-msgstr "нумерованное, обязательное"
-
-#: ConfigParser.cpp:83
+#: ConfigParser.cpp:85
 msgid "Print help"
 msgstr "Вывести справку"
 
-#: ConfigParser.cpp:85
+#: ConfigParser.cpp:87
 msgid "Print version"
 msgstr "Вывести версию"
 
-#: ConfigParser.cpp:87
+#: ConfigParser.cpp:89
 msgid "Set config file path"
 msgstr "Задать путь к файлу конфигурации"
 
-#: ConfigParser.cpp:154
+#: ConfigParser.cpp:156
 msgid "unknown"
 msgstr "неизвестно"
 
-#: ConfigParser.cpp:161
+#: ConfigParser.cpp:163
 msgid "Source: {1}, key: {2}, value: {3} "
 msgstr "Источник: {1}, ключ: {2}, значение: {3} "
 
-#: ConfigParser.cpp:176
+#: ConfigParser.cpp:178
 msgid ""
 "Unable to parse settings. {1}\n"
 "{2}\n"
@@ -66,7 +42,7 @@ msgstr ""
 "{2}\n"
 "Использование:\n"
 
-#: ConfigParser.cpp:183
+#: ConfigParser.cpp:185
 msgid ""
 "Unable to parse settings. {1}\n"
 "Usage:\n"
@@ -74,19 +50,19 @@ msgstr ""
 "Невозможно прочитать настройки. {1}\n"
 "Использование:\n"
 
-#: ConfigParser.cpp:232
+#: ConfigParser.cpp:234
 msgid "Program options"
 msgstr "Настройки приложения"
 
-#: ConfigParser.cpp:235
+#: ConfigParser.cpp:237
 msgid "Config options"
 msgstr "Настройки конфигурации"
 
-#: ConfigParser.cpp:316
+#: ConfigParser.cpp:318
 msgid "Config file path"
 msgstr "Путь к файлу конфигурации"
 
-#: ConfigParser.cpp:322
+#: ConfigParser.cpp:324
 msgid "command line"
 msgstr "командная строка"
 
