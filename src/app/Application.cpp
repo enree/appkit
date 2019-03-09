@@ -49,6 +49,20 @@ Application::Application(
     , m_manifest(manifest)
     , m_paths(std::move(paths))
 {
+    auto configLoggerPath
+        = m_paths.configs + "/" + m_manifest.configBase() + ".log.ini";
+
+    try
+    {
+        m_logger = std::make_unique<logger::Log>(configLoggerPath);
+    }
+    catch (const std::exception& ex)
+    {
+        BOOST_THROW_EXCEPTION(
+            InvalidLoggerConfiguration(configLoggerPath)
+            << exception::toForeignExceptionInfo(ex));
+    }
+
     loadTranslations(m_paths.translations);
     installSignalHandler(app);
 }

@@ -13,6 +13,8 @@
 #include "exception/DuplicateEntity.h"
 #include "exception/KeyInfo.h"
 
+#include "appkit/Translate.h"
+
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 

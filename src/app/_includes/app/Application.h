@@ -5,6 +5,9 @@
 #include "AppManifest.h"
 
 #include "config/ConfigParser.h"
+#include "log/Log.h"
+
+#include "exception/ErrorInfo.h"
 
 #include <QCoreApplication>
 
@@ -12,6 +15,17 @@
 
 namespace appkit
 {
+
+class InvalidLoggerConfiguration : public exception::Config
+{
+    using LoggerPath = boost::error_info<struct loggerPath_, std::string>;
+
+public:
+    explicit InvalidLoggerConfiguration(const std::string& loggerPath)
+    {
+        (*this) << LoggerPath(loggerPath);
+    }
+};
 
 class Application : private boost::noncopyable
 {
@@ -35,6 +49,7 @@ private:
     const AppManifest& m_manifest;
     config::ConfigParser m_configParser;
     Paths m_paths;
+    std::unique_ptr<logger::Log> m_logger;
 };
 
 } // namespace appkit

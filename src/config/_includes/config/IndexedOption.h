@@ -13,9 +13,8 @@
 
 #include "exception/InvalidConfigEntry.h"
 #include "exception/KeyInfo.h"
+#include "translations/Translations.h"
 #include "utils/Macro.h"
-
-#include "appkit/Translate.h"
 
 #include <boost/format.hpp>
 #include <boost/function.hpp>
@@ -70,10 +69,13 @@ public:
         UNUSED(indent);
         const std::string& defaultValue
             = m_defaultValue.is_initialized()
-                  ? APPKIT_TR("indexed, default value = {1}", m_defaultValue)
-                  : APPKIT_TR("indexed, mandatory");
+                  ? TR_N(
+                        "APPKIT",
+                        "indexed, default value = {1}",
+                        m_defaultValue)
+                  : TR_N("APPKIT", "indexed, mandatory");
 
-        return APPKIT_TR("{1} ({2})", descriptionValue(), defaultValue);
+        return TR_N("APPKIT", "{1} ({2})", descriptionValue(), defaultValue);
     }
 
     /**

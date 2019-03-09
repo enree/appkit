@@ -11,12 +11,12 @@
 
 #include "Option.h"
 
-#include "appkit/Translate.h"
-
 #include "exception/InvalidConfigEntry.h"
 #include "exception/KeyInfo.h"
 
 #include "utils/Macro.h"
+
+#include "translations/Translations.h"
 
 #include <boost/format.hpp>
 #include <boost/function.hpp>
@@ -45,7 +45,7 @@ public:
     std::string description(int indent) const override
     {
         UNUSED(indent);
-        return APPKIT_TR("{1} (array)", descriptionValue());
+        return TR_N("APPKIT", "{1} (array)", descriptionValue());
     }
 
 private:
