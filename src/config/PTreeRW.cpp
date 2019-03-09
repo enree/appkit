@@ -48,8 +48,7 @@ boost::property_tree::ptree fromCommandLine(
     store(parsed, vm);
     notify(vm);
 
-    for (variables_map::const_iterator vmIt = vm.begin(); vmIt != vm.end();
-         ++vmIt)
+    for (auto vmIt = vm.begin(); vmIt != vm.end(); ++vmIt)
     {
         {
             const std::string optionValue = vm[vmIt->first].as<std::string>();
