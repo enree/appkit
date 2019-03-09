@@ -1,5 +1,7 @@
 #include "app/UnixSignalHandler.h"
 
+#include "utils/Macro.h"
+
 #include <QCoreApplication>
 #include <QSocketNotifier>
 
@@ -36,9 +38,11 @@ void UnixSignalHandler::read(int socket)
 {
     m_notifier->setEnabled(false);
     char tmp;
-    ::read(socket, &tmp, sizeof(tmp));
-    emit raised();
-    m_notifier->setEnabled(true);
+    if (::read(socket, &tmp, sizeof(tmp)))
+    {
+        emit raised();
+        m_notifier->setEnabled(true);
+    }
 }
 
 void UnixSignalHandler::handle(int signal)
@@ -47,7 +51,8 @@ void UnixSignalHandler::handle(int signal)
     if (signalHandler)
     {
         char c = 1;
-        ::write(signalHandler->m_sockets[0], &c, sizeof(c));
+        auto result = ::write(signalHandler->m_sockets[0], &c, sizeof(c));
+        UNUSED(result);
     }
 }
 
