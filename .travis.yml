@@ -38,7 +38,7 @@ matrix:
           packages:
             - clang-7
             - g++-7
-            - boost1.68
+            - boost1.67
           sources:
             - sourceline: 'ppa:mhier/libboost-latest'
             - ubuntu-toolchain-r-test
@@ -58,7 +58,7 @@ matrix:
           update: true
           packages: 
             - g++-7
-            - boost1.68
+            - boost1.67
           sources:
             - sourceline: 'ppa:mhier/libboost-latest'
             - ubuntu-toolchain-r-test
