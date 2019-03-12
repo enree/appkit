@@ -3,6 +3,8 @@
 #include "CustomSyslogFactory.h"
 #include "TimeStampFormatterFactory.h"
 
+#include <gsl/gsl_assert>
+
 #include <boost/filesystem.hpp>
 #include <boost/log/attributes/current_process_name.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
@@ -70,7 +72,7 @@ Log::~Log()
 void Log::setupAttributes()
 {
     auto core = logging::core::get();
-    BOOST_ASSERT(core);
+    Expects(core);
 
     boost::log::add_common_attributes();
 #ifdef __linux
