@@ -111,6 +111,7 @@ int Application::run()
         return appkit::CONFIGURATION_ERROR;
     }
 
+    initialize();
     return QCoreApplication::exec();
 }
 
@@ -118,6 +119,11 @@ void Application::addSpecificOptions(config::ConfigParser& configParser)
 {
     // Do nothing function
     Q_UNUSED(configParser);
+}
+
+void Application::initialize()
+{
+    // Do nothing function
 }
 
 } // namespace appkit

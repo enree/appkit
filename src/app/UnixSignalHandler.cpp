@@ -2,6 +2,8 @@
 
 #include "utils/Macro.h"
 
+#include "gsl/gsl_assert"
+
 #include <QCoreApplication>
 #include <QSocketNotifier>
 
@@ -15,7 +17,7 @@ namespace appkit
 UnixSignalHandler::UnixSignalHandler(int signal, QObject* parent)
     : QObject(parent)
 {
-    Q_ASSERT(m_handlers[signal] == nullptr);
+    Expects(m_handlers[signal] == nullptr);
 
     if (::socketpair(AF_UNIX, SOCK_STREAM, 0, m_sockets))
     {

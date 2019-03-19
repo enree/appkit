@@ -10,6 +10,8 @@ add_subdirectory(config)
 add_subdirectory(core)
 add_subdirectory(log)
 add_subdirectory(plugins)
+add_subdirectory(storage)
+add_subdirectory(serialization)
 add_subdirectory(translations)
 
 compileTranslations(${TRANSLATION_DOMAIN})
