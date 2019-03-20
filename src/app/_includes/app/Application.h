@@ -42,6 +42,9 @@ public:
 private:
     // Add specific application options
     virtual void addSpecificOptions(appkit::config::ConfigParser& configParser);
+    // Override this function to do special initialization after loading
+    // configuration
+    virtual void initialize();
 
 private:
     int m_argc;
