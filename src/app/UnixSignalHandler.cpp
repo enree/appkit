@@ -19,7 +19,7 @@ UnixSignalHandler::UnixSignalHandler(int signal, QObject* parent)
 {
     Expects(m_handlers[signal] == nullptr);
 
-    if (::socketpair(AF_UNIX, SOCK_STREAM, 0, m_sockets))
+    if (::socketpair(AF_UNIX, SOCK_STREAM, 0, m_sockets) != 0)
     {
         return;
     }
@@ -40,7 +40,7 @@ void UnixSignalHandler::read(int socket)
 {
     m_notifier->setEnabled(false);
     char tmp;
-    if (::read(socket, &tmp, sizeof(tmp)))
+    if (::read(socket, &tmp, sizeof(tmp)) != 0)
     {
         emit raised();
         m_notifier->setEnabled(true);
@@ -50,7 +50,7 @@ void UnixSignalHandler::read(int socket)
 void UnixSignalHandler::handle(int signal)
 {
     auto const signalHandler = m_handlers[signal];
-    if (signalHandler)
+    if (signalHandler != nullptr)
     {
         char c = 1;
         auto result = ::write(signalHandler->m_sockets[0], &c, sizeof(c));

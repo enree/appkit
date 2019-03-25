@@ -16,6 +16,8 @@
 #include "translations/Translations.h"
 #include "utils/Macro.h"
 
+#include <gsl/gsl_assert>
+
 #include <boost/format.hpp>
 #include <boost/function.hpp>
 
@@ -126,7 +128,7 @@ private:
      */
     void read(const boost::property_tree::ptree& node) override
     {
-        BOOST_ASSERT_MSG(m_parentPath != key(), "No placeholder in key");
+        Expects(m_parentPath != key());
 
         // Say, we have option.%.node here
         // We check while nodes option.0, option.1 etc are presented in tree

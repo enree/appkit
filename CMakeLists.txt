@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 
 project(appkit)
 
-
 include(${CMAKE_SOURCE_DIR}/cmake/make.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/check/lint.cmake)
 include(${CMAKE_SOURCE_DIR}/modules/gqtest/gqtest.cmake)
 
 definePaths(${PROJECT_NAME})
