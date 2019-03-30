@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: evilhood/arch-builder:latest
+    steps:
+      - checkout
+      - run:
+          name: Generating build files
+          command: 'cmake -Bbuild'
+      - run:
+          name: Building
+          command: 'cmake --build build -j2'
+      - run:
+          name: Unit Testing
+          command: 'pushd build && ctest -j2'
