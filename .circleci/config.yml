@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: evilhood/arch-builder:latest
+      - image: evillhood/arch-builder:latest
     steps:
       - checkout
       - run:
