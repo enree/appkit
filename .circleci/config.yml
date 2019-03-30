@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Fetching submodules
+          command: 'bash configure.sh'
+      - run:
           name: Generating build files
           command: 'cmake -Bbuild'
       - run:
