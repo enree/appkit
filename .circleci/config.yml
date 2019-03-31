@@ -49,5 +49,3 @@ workflows:
   build:
     jobs:
       - build-gcc-default
-      - build-clang-release
-      - build-clang-debug
