@@ -1,4 +1,7 @@
 aliases:
+  - &add_components 
+    name: Installing components
+    command: 'pacman -S which qt5-tools --noconfirm'
   - &configure
     name: Fetching submodules
     command: 'bash configure.sh'
@@ -11,11 +14,12 @@ aliases:
 
 version: 2
 jobs:
-  build:
+  build-clang-release:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
+      - run: *add_components
       - run: *configure
       - run:
           name: Generating build files
@@ -27,6 +31,7 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
+      - run: *add_components
       - run: *configure
       - run:
           name: Generating build files
@@ -38,9 +43,18 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
+      - run: *add_components
       - run: *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Debug -DSANITIZE=ON -DQT_QMAKE_EXECUTABLE=qmake'
       - run: *building
       - run: *testing
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-clang-debug
+      - build-clang-release
+      - build-gcc-release
