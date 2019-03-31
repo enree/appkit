@@ -11,7 +11,7 @@ aliases:
 
 version: 2
 jobs:
-  build-clang-release:
+  build:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
