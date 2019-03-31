@@ -1,16 +1,16 @@
 aliases:
-    - &configure
-        - run:
-            name: Fetching submodules
-            command: 'bash configure.sh'
-    - &building
-        - run:
-            name: Building
-            command: 'cmake --build build -j2'
-    - &testing
-        - run:
-            name: Unit Testing
-            command: 'pushd build && ctest --output-on-failure -j2'
+  - &configure
+    - run:
+      name: Fetching submodules
+      command: 'bash configure.sh'
+  - &building
+    - run:
+      name: Building
+      command: 'cmake --build build -j2'  
+  - &testing
+    - run:
+      name: Unit Testing
+      command: 'pushd build && ctest --output-on-failure -j2'
 
 version: 2
 jobs:
