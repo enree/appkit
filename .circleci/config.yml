@@ -1,3 +1,14 @@
+aliases:
+  - &configure
+    name: Fetching submodules
+    command: 'bash configure.sh'
+  - &building
+    name: Building
+    command: 'cmake --build build -j2'
+  - &testing
+    name: Unit Testing
+    command: 'pushd build && ctest --output-on-failure -j2'
+    
 version: 2
 jobs:
   build-gcc-default:
@@ -5,18 +16,12 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - run:
-          name: Fetching submodules
-          command: 'bash configure.sh'
+      - run: *configure
       - run:
           name: Generating build files
-          command: 'cmake -Bbuild'
-      - run:
-          name: Building
-          command: 'cmake --build build -j2'
-      - run:
-          name: Unit Testing
-          command: 'pushd build && ctest -j2'
+          command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Release -DQT_QMAKE_EXECUTABLE=qmake'
+      - run: *building
+      - run: *testing
 workflows:
   version: 2
   build:
