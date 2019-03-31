@@ -1,16 +1,13 @@
 aliases:
   - &configure
-    - run:
-      name: Fetching submodules
-      command: 'bash configure.sh'
+    name: Fetching submodules
+    command: 'bash configure.sh'
   - &building
-    - run:
-      name: Building
-      command: 'cmake --build build -j2'  
+    name: Building
+    command: 'cmake --build build -j2'
   - &testing
-    - run:
-      name: Unit Testing
-      command: 'pushd build && ctest --output-on-failure -j2'
+    name: Unit Testing
+    command: 'pushd build && ctest --output-on-failure -j2'
 
 version: 2
 jobs:
@@ -19,34 +16,35 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - *configure
+      - run: *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=14 -DCMAKE_BUILD_TYPE=Release'
-      - *building
-      - *testing
+      - run: *building
+      - run: *testing
   build-gcc-release:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - *configure
+      - run: *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Release'
-      - *building
-      - *testing
+      - run: *building
+      - run: *testing
   build-clang-debug:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - *configure
+      - run: *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Debug -DSANITIZE=ON'
-      - *building
-      - *testing
+      - run: *building
+      - run: *testing
+
 workflows:
   version: 2
   build:
