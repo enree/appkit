@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Installing components
-          command: 'pacman -S which'
+          command: 'pacman -S which gettext --noconfirm'
       - run:
           name: Fetching submodules
           command: 'bash configure.sh'
