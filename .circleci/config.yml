@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Installing components
+          command: 'pacman -S which'
+      - run:
           name: Fetching submodules
           command: 'bash configure.sh'
       - run:
