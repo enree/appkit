@@ -1,60 +1,24 @@
-aliases:
-  - &add_components 
-    name: Installing components
-    command: 'pacman -S which qt5-tools --noconfirm'
-  - &configure
-    name: Fetching submodules
-    command: 'bash configure.sh'
-  - &building
-    name: Building
-    command: 'cmake --build build -j2'
-  - &testing
-    name: Unit Testing
-    command: 'pushd build && ctest --output-on-failure -j2'
-
 version: 2
 jobs:
-  build-clang-release:
+  build-gcc-default:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - run: *add_components
-      - run: *configure
+      - run:
+          name: Fetching submodules
+          command: 'bash configure.sh'
       - run:
           name: Generating build files
-          command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=14 -DCMAKE_BUILD_TYPE=Release -DQT_QMAKE_EXECUTABLE=qmake'
-      - run: *building
-      - run: *testing
-  build-gcc-release:
-    docker:
-      - image: evillhood/arch-builder:latest
-    steps:
-      - checkout
-      - run: *add_components
-      - run: *configure
+          command: 'cmake -Bbuild'
       - run:
-          name: Generating build files
-          command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Release -DQT_QMAKE_EXECUTABLE=qmake'
-      - run: *building
-      - run: *testing
-  build-clang-debug:
-    docker:
-      - image: evillhood/arch-builder:latest
-    steps:
-      - checkout
-      - run: *add_components
-      - run: *configure
+          name: Building
+          command: 'cmake --build build -j2'
       - run:
-          name: Generating build files
-          command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Debug -DSANITIZE=ON -DQT_QMAKE_EXECUTABLE=qmake'
-      - run: *building
-      - run: *testing
-
+          name: Unit Testing
+          command: 'pushd build && ctest -j2'
 workflows:
   version: 2
   build:
     jobs:
-      - build-clang-debug
-      - build-clang-release
-      - build-gcc-release
+      - build-gcc-default
