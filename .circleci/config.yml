@@ -1,3 +1,17 @@
+aliases:
+    - &configure
+        - run:
+            name: Fetching submodules
+            command: 'bash configure.sh'
+    - &building
+        - run:
+            name: Building
+            command: 'cmake --build build -j2'
+    - &testing
+        - run:
+            name: Unit Testing
+            command: 'pushd build && ctest --output-on-failure -j2'
+
 version: 2
 jobs:
   build-clang-release:
@@ -5,52 +19,34 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - run:
-          name: Fetching submodules
-          command: 'bash configure.sh'
+      - *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=14 -DCMAKE_BUILD_TYPE=Release'
-      - run:
-          name: Building
-          command: 'cmake --build build -j2'
-      - run:
-          name: Unit Testing
-          command: 'pushd build && ctest --output-on-failure -j2'
+      - *building
+      - *testing
   build-gcc-release:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - run:
-          name: Fetching submodules
-          command: 'bash configure.sh'
+      - *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Release'
-      - run:
-          name: Building
-          command: 'cmake --build build -j2'
-      - run:
-          name: Unit Testing
-          command: 'pushd build && ctest --output-on-failure -j2'
+      - *building
+      - *testing
   build-clang-debug:
     docker:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
-      - run:
-          name: Fetching submodules
-          command: 'bash configure.sh'
+      - *configure
       - run:
           name: Generating build files
           command: 'cmake -Bbuild -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_STANDARD=17 -DCMAKE_BUILD_TYPE=Debug -DSANITIZE=ON'
-      - run:
-          name: Building
-          command: 'cmake --build build -j2'
-      - run:
-          name: Unit Testing
-          command: 'pushd build && ctest --output-on-failure -j2'
+      - *building
+      - *testing
 workflows:
   version: 2
   build:
