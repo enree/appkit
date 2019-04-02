@@ -48,22 +48,22 @@ public:
     {
     }
 
-    std::string printable() const
+    [[nodiscard]] std::string printable() const
     {
         return std::string("--") + m_key + ", -" + m_shortKey;
     }
 
-    std::string boostOption() const
+    [[nodiscard]] std::string boostOption() const
     {
         return m_key + "," + m_shortKey;
     }
 
-    std::string key() const
+    [[nodiscard]] std::string key() const
     {
         return m_key;
     }
 
-    std::string description() const
+    [[nodiscard]] std::string description() const
     {
         return m_description;
     }
