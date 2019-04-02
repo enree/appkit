@@ -1,4 +1,7 @@
 aliases:
+  - &hacking
+    name: Hack Qt5Core
+    command: 'set -x; strip --remove-section=.note.ABI-tag /usr/lib/libQt5Core.so.5'
   - &debug
     name: Debugging info
     command: 'ldd /usr/sbin/lupdate && ls /usr/lib/libQt5*'
@@ -19,6 +22,7 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
+      - run: *hacking
       - run: *debug
       - run: *configure
       - run:
