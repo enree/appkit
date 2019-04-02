@@ -1,7 +1,7 @@
 aliases:
   - &debug
     name: Debugging info
-    command: 'ldd /usr/sbin/lupdate'
+    command: 'ldd /usr/sbin/lupdate && ls /usr/lib/libQt5*'
   - &configure
     name: Fetching submodules
     command: 'bash configure.sh'
