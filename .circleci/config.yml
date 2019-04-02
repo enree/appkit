@@ -1,4 +1,7 @@
 aliases:
+  - &debug
+    name: Debugging info
+    command: 'ldd /usr/sbin/lupdate'
   - &configure
     name: Fetching submodules
     command: 'bash configure.sh'
