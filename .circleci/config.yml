@@ -19,6 +19,7 @@ jobs:
       - image: evillhood/arch-builder:latest
     steps:
       - checkout
+      - run: *debug
       - run: *configure
       - run:
           name: Generating build files
